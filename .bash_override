@@ -1,0 +1,81 @@
+_zhz() {
+  ssh $(grep -E "^Host " ~/.ssh/config | grep -v "*" | sed -e 's/Host[ ]*//g' | fzf)
+}
+
+y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	command rm -f -- "$tmp"
+}
+
+_brew_bundle_all() {
+  brew bundle "$1" --global &&
+  brew bundle "$1" --file="$HOME/.Brewfile.local"
+}
+
+HOMEBREW_PREFIX=/opt/homebrew
+if [ -d "${HOMEBREW_PREFIX}" ]; then
+  alias ls='gls --color'
+
+  source ${HOMEBREW_PREFIX}/etc/bash_completion.d/git-completion.bash
+  source ${HOMEBREW_PREFIX}/etc/bash_completion.d/git-prompt.sh
+  eval "$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
+  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  else
+    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
+    do
+      [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+    done
+  fi
+else
+  source ~/.config/git/git-completion.bash
+  source ~/.config/git/git-prompt.sh
+fi
+
+_timer_start() {
+  _cmd_timer=${_cmd_timer:-$SECONDS}
+}
+
+_timer_stop() {
+  local elapsed=$(( SECONDS - ${_cmd_timer:-$SECONDS} ))
+  _cmd_elapsed=""
+  (( elapsed > 0 )) && _cmd_elapsed=" [${elapsed}s]"
+  unset _cmd_timer
+}
+
+# brush の cd はプロセスの実 cwd を変えないので、端末には OSC 7 で cwd を明示的に伝える。
+# これが無いと wezterm のタブに出るパスがペイン起動時のディレクトリで固定される
+__osc7_host="${HOSTNAME:-$(hostname)}"
+__osc7_cwd() {
+  printf '\033]7;file://%s%s\007' "$__osc7_host" "$PWD"
+}
+
+trap '_timer_start' DEBUG
+
+GIT_PS1_SHOWDIRTYSTATE=true
+PS1='\[\033[0m\]:\[\033[35m\]\w \[\033[31m\]$(__git_ps1)\[\033[33m\]${_cmd_elapsed}\[\033[36m\] \t\n\[\033[0m\]$ '
+
+alias brewi='_brew_bundle_all install'
+alias brewu='_brew_bundle_all upgrade'
+alias k='kubectl'
+alias lzd='lazydocker'
+alias lzg='lazygit'
+alias reload='exec $SHELL -l'
+alias v='nvim'
+alias zh='_zhz'
+alias zz='zi'
+
+export PATH="/usr/local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export GOPATH="$HOME/go"
+export PATH="$GOPATH/bin:$PATH"
+
+eval "$(direnv hook bash)"
+eval "$(fzf --bash)"
+eval "$(zoxide init bash)"
+
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND;}__osc7_cwd"
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND;}_timer_stop"

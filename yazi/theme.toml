@@ -1,0 +1,5 @@
+[icon]
+prepend_conds = [
+	{ if = "dir & hovered", text = "", fg = "magenta" },
+	{ if = "dir", text = "", fg = "magenta" },
+]

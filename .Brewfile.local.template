@@ -1,0 +1,11 @@
+# tap "anomalyco/tap", trusted: true
+# brew "anomalyco/tap/opencode", trusted: true
+# brew "coreutils", trusted: true
+# brew "kind", trusted: true
+# cask "docker-desktop"
+# cask "google-chrome"
+# cask "raycast"
+# cask "slack"
+# cask "vivaldi"
+# cask "zed"
+# npm "corepack"

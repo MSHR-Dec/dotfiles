@@ -1,0 +1,155 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "project_panel": {
+    "dock": "left"
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "right"
+  },
+  "edit_predictions": {
+    "provider": "open_ai_compatible_api",
+    "open_ai_compatible_api": {
+      "api_url": "http://ubuntu:8080/v1/completions",
+      "model": "Qwen/Qwen2.5-Coder-7B-Instruct-GGUF:Q4_K_M",
+      "prompt_format": "qwen",
+      "max_output_tokens": 32
+    }
+  },
+  "icon_theme": "Catppuccin Frappé",
+  "ui_font_family": ".ZedMono",
+  "buffer_font_family": "HackGen35",
+  "use_system_window_tabs": true,
+  "tabs": {
+    "git_status": true,
+    "show_close_button": "hover",
+  },
+  "tab_bar": {
+    "show_pinned_tabs_in_separate_row": true,
+    "show_nav_history_buttons": false,
+  },
+  "active_pane_modifiers": {
+    "border_size": 3.0,
+    "inactive_opacity": 0.7,
+  },
+  "terminal": {
+    "dock": "bottom",
+    "shell": {
+      "with_arguments": {
+        "program": "/opt/homebrew/bin/brush",
+        "args": ["--login"],
+      },
+    },
+  },
+  "agent": {
+    "sidebar_side": "right",
+    "dock": "right",
+    "default_profile": "ask",
+    "default_model": {
+      "provider": "nuc-llama",
+      "model": "Qwen/Qwen2.5-Coder-7B-Instruct-GGUF:Q4_K_M",
+    },
+    // Terminal Thread で Claude Code が BEL を出したときのポップアップを
+    // 全ディスプレイに表示する。該当ターミナルが表示中のときは抑制される。
+    // BEL を出させるには ~/.claude/settings.json の
+    // "preferredNotifChannel": "terminal_bell" が必要
+    "notify_when_agent_waiting": "all_screens",
+    // 音は Claude Code の Notification / Stop hook (osascript + Glass) が
+    // 既に鳴らしているので、二重に鳴らさない
+    "play_sound_when_agent_done": "never",
+    // 生成中の経過時間と所要時間の表示。ACP スレッド (claude-acp) 用で、
+    // Terminal Thread には効かない
+    "show_turn_stats": true,
+  },
+  "git_panel": {
+    "tree_view": true,
+    "collapse_untracked_diff": true,
+    "dock": "left",
+  },
+  "ui_font_size": 15,
+  "buffer_font_size": 13,
+  "tab_size": 2,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    // zed/themes/new-darcula-jetbrains-syntax.json
+    // UI 配色は New Darcula、シンタックスハイライトは JetBrains Dark
+    "dark": "New Darcula JetBrains Syntax",
+  },
+  "experimental.theme_overrides": {
+    "terminal.background": "#2b2b2d",
+    "terminal.foreground": "#ffffff",
+  },
+  "autosave": {
+    "after_delay": {
+      "milliseconds": 1000,
+    },
+  },
+  "inlay_hints": {
+    "enabled": true,
+    "show_type_hints": true,
+    "show_parameter_hints": true,
+    "show_other_hints": true,
+    "edit_debounce_ms": 700,
+    "scroll_debounce_ms": 50,
+  },
+  "code_lens": "on",
+  "minimap": {
+    "show": "auto",
+    "thumb": "always",
+    "thumb_border": "left_open",
+    "current_line_highlight": null
+  },
+  "languages": {
+    "terraform": {
+      "format_on_save": "on",
+    },
+    "Plain Text": {
+      "completions": {
+        "words": "enabled",
+      },
+    },
+    "Markdown": {
+      "completions": {
+        "words": "enabled",
+      },
+    },
+  },
+  "file_types": {
+    "Ruby": ["rake"],
+    "Dockerfile": ["Dockerfile*"],
+  },
+  "diagnostics_max_severity": null,
+  "lsp": {
+    "terraform-ls": {
+      "initialization_options": {
+        "experimentalFeatures": {
+          "prefillRequiredFields": true
+        }
+      }
+    }
+  },
+  "language_models": {
+    "openai_compatible": {
+      "nuc-llama": {
+        "api_url": "http://ubuntu:8080/v1",
+        "available_models": [
+          {
+            "name": "Qwen/Qwen2.5-Coder-7B-Instruct-GGUF:Q4_K_M",
+            "display_name": "Qwen2.5-Coder-7B (NUC)",
+            "max_tokens": 131072
+          }
+        ]
+      }
+    }
+  }
+}

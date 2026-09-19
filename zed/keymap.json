@@ -1,0 +1,77 @@
+[
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-d": "editor::DuplicateSelection",
+      "ctrl-g": ["editor::SelectNext", { "replace_newest": false }],
+      "cmd-/": ["editor::ToggleComments", { "advance_downwards": true }],
+      "cmd-shift-up": "editor::MoveLineUp",
+      "cmd-shift-down": "editor::MoveLineDown",
+      "cmd-alt-l": "editor::Format",
+      "ctrl-r": "editor::Rename",
+      "cmd-b": "editor::GoToDefinition",
+      "cmd-shift-b": "editor::GoToTypeDefinition",
+      "cmd-i": "editor::GoToImplementation",
+      "cmd-shift-i": "editor::ToggleInlayHints",
+      "cmd-shift-r": "editor::FindAllReferences",
+      "ctrl-l": "editor::AcceptNextWordEditPrediction",
+      "cmd-ctrl-l": "editor::AcceptEditPrediction",
+      "tab": "editor::Tab",
+      "cmd-shift-g": "editor::ToggleSelectedDiffHunks",
+      // "cmd-shift-p": "pane::ActivatePreviousItem",
+      // "cmd-shift-n": "pane::ActivateNextItem"
+    }
+  },
+  {
+    "context": "Editor && mode == full",
+    "bindings": {
+      "cmd-f12": "outline::Toggle",
+      "cmd-r": ["buffer_search::Deploy", { "replace_enabled": true }],
+      "cmd-shift-o": "file_finder::Toggle",
+      "cmd-l": "go_to_line::Toggle",
+      "alt-enter": "editor::ToggleCodeActions"
+    }
+  },
+  {
+    "context": "BufferSearchBar",
+    "bindings": {
+      "shift-enter": "search::SelectPreviousMatch"
+    }
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "enter": "project_panel::Open",
+      "ctrl-r": "project_panel::Rename"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "cmd-t": "workspace::NewTerminal"
+    }
+  },
+  {
+    "bindings": {
+      "ctrl-q": ["workspace::SendKeystrokes", "ctrl-q"],
+      "ctrl-left": "workspace::ActivatePaneLeft",
+      "ctrl-right": "workspace::ActivatePaneRight",
+      "ctrl-up": "workspace::ActivatePaneUp",
+      "ctrl-down": "workspace::ActivatePaneDown",
+      "cmd-k": "git_panel::ToggleFocus",
+      "cmd-shift-k": "project_panel::ToggleFocus",
+      "ctrl-t": "terminal_panel::ToggleFocus",
+      "cmd-shift-n": "multi_workspace::NextThread",
+      "cmd-shift-p": "multi_workspace::PreviousThread",
+      "cmd-ctrl-n": "multi_workspace::NextProject",
+      "cmd-ctrl-p": "multi_workspace::PreviousProject",
+      "ctrl-q 1": [
+        "task::Spawn",
+        {
+          "task_name": "lzd",
+          "reveal_target": "center"
+        }
+      ]
+    }
+  }
+]

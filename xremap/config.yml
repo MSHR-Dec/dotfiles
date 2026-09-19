@@ -1,0 +1,39 @@
+keymap:
+  - name: remap
+    application:
+      not: org.wezfurlong.wezterm
+    remap:
+      C-b: left
+      C-f: right
+      C-p: up
+      C-n: down
+      C-a: home
+      C-e: end
+      C-d: delete
+      C-h: backspace
+
+      Super-a: C-a
+      Super-s: C-s
+      Super-z: C-z
+      Super-x: C-x
+      Super-c: C-c
+      Super-v: C-v
+      Super-w: C-w
+      Super-t: C-t
+      Super-f: C-f
+
+      C-k: F7
+      C-l: F8
+
+  - name: quit
+    application:
+      not: [org.wezfurlong.wezterm, dev.zed.Zed]
+    remap:
+      Super-q: C-q
+
+modmap:
+  - name: intellij
+    application:
+      only: jetbrains-idea
+    remap:
+      Super_L: Alt_L

@@ -1,0 +1,7 @@
+# NeoVim
+custom.lua
+nvim.log
+requirements.lua
+
+# Homebrew
+.Brewfile.local
