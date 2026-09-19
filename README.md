@@ -20,11 +20,11 @@ anyenv install --init
 ```
 sudo pacman -Syyu
 sudo pacman -S --needed \
-  bash brush direnv fd ffmpeg fzf github-cli go grep imagemagick jq \
-  lazygit tree-sitter neovim pnpm poppler resvg ripgrep p7zip \
+  base-devel bash brush direnv fd ffmpeg fzf github-cli go grep imagemagick jq \
+  lazygit tree-sitter neovim peco pnpm poppler resvg ripgrep p7zip \
   the_silver_searcher tig tree vivaldi vivaldi-ffmpeg-codecs yay yazi yq zoxide
 yay -S --needed \
-  anyenv lazydocker-bin markdown-oxide mycli peco-git tree-sitter-cli \
+  anyenv lazydocker-bin tree-sitter-cli \
   ttf-hackgen ttf-hackgen-nerd wezterm-nightly-bin xremap-kde-bin
 go install golang.org/x/tools/gopls@latest
 curl -fsSL https://claude.ai/install.sh | bash
@@ -33,12 +33,11 @@ curl -fsSL https://claude.ai/install.sh | bash
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 mkdir -p ~/.config/git
-wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O .config/git/git-completion.bash
-wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -O .config/git/git-prompt.sh
+wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O ~/.config/git/git-completion.bash
+wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -O ~/.config/git/git-prompt.sh
 ```
 ```
 ./setup.sh
-echo /usr/bin/brush | sudo tee -a /etc/shells
 chsh -s /usr/bin/brush
 anyenv init
 anyenv install --init
