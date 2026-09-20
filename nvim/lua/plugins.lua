@@ -17,8 +17,6 @@ if not vim.uv.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- 遅延ロードは使わず、全プラグインを起動時にロードする
--- (setup呼び出しは appearances.lua / tools.lua 側でロード後にまとめて行う)
 require('lazy').setup({
   -- appearance
   'Mofiqul/dracula.nvim',
@@ -51,4 +49,13 @@ require('lazy').setup({
   'ixru/nvim-markdown',
   'MeanderingProgrammer/render-markdown.nvim',
   'hashivim/vim-terraform',
+
+  -- completion
+  { 'saghen/blink.cmp', version = '1.*' },
+  'rafamadriz/friendly-snippets',
+
+  -- lsp
+  'neovim/nvim-lspconfig',
+  'mason-org/mason.nvim',
+  'mason-org/mason-lspconfig.nvim',
 })

@@ -1,1 +1,5 @@
 -- require('custom.custom')
+
+-- require('custom.lsp.go')
+-- require('custom.lsp.ruby')
+-- require('custom.lsp.rust')
