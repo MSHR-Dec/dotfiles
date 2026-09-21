@@ -12,6 +12,6 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 brewi
 echo /opt/homebrew/bin/brush | sudo tee -a /etc/shells
 chsh -s /opt/homebrew/bin/brush
-anyenv init
-anyenv install --init
+reload
+mise install
 ```

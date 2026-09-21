@@ -1,4 +1,3 @@
-brew "anyenv", trusted: true
 brew "bash", trusted: true
 brew "brush", trusted: true
 brew "direnv", trusted: true
@@ -15,6 +14,7 @@ brew "jq", trusted: true
 brew "lazydocker", trusted: true
 brew "lazygit", trusted: true
 brew "markdown-oxide", trusted: true
+brew "mise", trusted: true
 brew "mycli", trusted: true
 brew "tree-sitter", trusted: true
 brew "tree-sitter-cli", trusted: true

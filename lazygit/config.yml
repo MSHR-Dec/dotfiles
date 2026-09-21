@@ -1,3 +1,6 @@
+os:
+  editPreset: vim
+
 gui:
   theme:
     activeBorderColor:

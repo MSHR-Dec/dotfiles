@@ -72,6 +72,7 @@ export PATH="/usr/local/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
+export PATH="$HOME/.local/share/mise/shims:$PATH"
 
 eval "$(direnv hook bash)"
 eval "$(fzf --bash)"
