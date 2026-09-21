@@ -15,9 +15,18 @@ _brew_bundle_all() {
   brew bundle "$1" --file="$HOME/.Brewfile.local"
 }
 
-HOMEBREW_PREFIX=/opt/homebrew
+if [ "$(uname)" == "Darwin" ]; then
+  HOMEBREW_PREFIX=/opt/homebrew
+elif [ "$(uname)" == "Linux" ]; then
+  HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
+fi
+
 if [ -d "${HOMEBREW_PREFIX}" ]; then
-  alias ls='gls --color'
+  if [ "$(uname)" == "Darwin" ]; then
+    alias ls='gls --color'
+  else
+    alias ls='ls --color=auto'
+  fi
 
   source ${HOMEBREW_PREFIX}/etc/bash_completion.d/git-completion.bash
   source ${HOMEBREW_PREFIX}/etc/bash_completion.d/git-prompt.sh

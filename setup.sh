@@ -53,10 +53,6 @@ ln -fnsv "${DIR}"/brush/config.toml ~/.config/brush/config.toml
 mkdir -p ~/.config/lazygit
 ln -fnsv "${DIR}"/lazygit/config.yml ~/.config/lazygit/config.yml
 
-# Tmux
-mkdir -p ~/.config/tmux
-ln -fnsv "${DIR}"/tmux/tmux.conf ~/.config/tmux/tmux.conf
-
 # Yazi
 mkdir -p ~/.config/yazi
 ln -fnsv "${DIR}"/yazi/yazi.toml ~/.config/yazi/yazi.toml

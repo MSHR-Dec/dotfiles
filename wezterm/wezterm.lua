@@ -56,7 +56,8 @@ local act = wezterm.action
 -- 値がそのままタブタイトルに連結される
 local overlay_panes = {}
 
-local OVERLAY_SHELL = "/opt/homebrew/bin/brush"
+local OVERLAY_SHELL = wezterm.target_triple:find("linux") and "/home/linuxbrew/.linuxbrew/bin/brush"
+	or "/opt/homebrew/bin/brush"
 
 local function toggle_overlay_pane(cmd, marker)
 	local args = { OVERLAY_SHELL, "--login" }

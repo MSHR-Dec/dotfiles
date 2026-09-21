@@ -1,7 +1,8 @@
 -- toggleterm.nvim
-local login_shell = vim.fn.executable("/opt/homebrew/bin/bash") == 1
-  and "/opt/homebrew/bin/brush --login"
-  or "/bin/bash --login"
+local brush_path = vim.fn.executable("/opt/homebrew/bin/brush") == 1 and "/opt/homebrew/bin/brush"
+  or vim.fn.executable("/home/linuxbrew/.linuxbrew/bin/brush") == 1 and "/home/linuxbrew/.linuxbrew/bin/brush"
+  or nil
+local login_shell = brush_path and (brush_path .. " --login") or "/bin/bash --login"
 
 require("toggleterm").setup({
   size = vim.o.lines * 0.25,
