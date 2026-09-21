@@ -9,10 +9,13 @@ require("toggleterm").setup({
   direction = "horizontal",
   shell = login_shell,
 })
-vim.keymap.set("t", "<F12>", [[<c-\><c-n>]], { noremap = true })
+vim.keymap.set("t", "<F1>", [[<c-\><c-n>]], { noremap = true })
 vim.keymap.set("v", "<Leader>s", ":ToggleTermSendVisualSelection<cr>",
   { desc = "send selection to terminal" })
 vim.keymap.set("n", "<Leader>tig", function() require("tig").toggle() end)
+vim.keymap.set("n", "<Leader>tt", function()
+  require("toggleterm.terminal").Terminal:new({ direction = "tab" }):toggle()
+end, { desc = "terminal (own tab)" })
 -- Requirement:
 --  Set "fullscreen" to `gui.screenMode` in the config
 --  see: https://github.com/jesseduffield/lazydocker/blob/master/docs/Config.md
