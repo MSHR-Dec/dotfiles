@@ -29,3 +29,17 @@ reload
 xremap's per-application remaps (`xremap/config.yml`) work out of the box on X11. On Wayland it depends on the desktop:
 - GNOME Wayland: install the [xremap GNOME Shell extension](https://extensions.gnome.org/extension/5060/xremap/).
 - KDE Plasma Wayland: no extension exists; xremap logs the active window's class/caption to `journalctl --user -u xremap -f` once a filter has been triggered, which you use to write the `application` matchers. See the [xremap docs](https://github.com/xremap/xremap/blob/master/README.md#kde-plasma-wayland).
+
+Vivaldi isn't installed by `setup-ubuntu.sh` (its Homebrew cask is macOS-only), install it manually from its official apt repo:
+```
+curl -fsSL https://repo.vivaldi.com/archive/linux_signing_key.pub | sudo gpg --yes --dearmor -o /usr/share/keyrings/vivaldi-browser.gpg
+cat <<EOF | sudo tee /etc/apt/sources.list.d/vivaldi-archive.sources
+Types: deb
+URIs: https://repo.vivaldi.com/archive/deb/
+Suites: stable
+Components: main
+Signed-By: /usr/share/keyrings/vivaldi-browser.gpg
+EOF
+sudo apt-get update
+sudo apt-get install -y vivaldi-stable
+```
