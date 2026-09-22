@@ -3,6 +3,20 @@ local act = wezterm.action
 
 local M = {}
 
+local IS_LINUX = wezterm.target_triple:find("linux") ~= nil
+
+-- KDE Plasma は wezterm の toast_notification (dbus 経由, urgency=Critical 固定) を
+-- 自動で閉じてくれない (Critical 通知は明示的に消すまで残る仕様のため)。
+-- notify-send 経由で urgency=normal を明示することで timeout を効かせる。
+-- https://github.com/wezterm/wezterm/issues/7553
+function M.notify(window, title, body, timeout_ms)
+	if IS_LINUX then
+		wezterm.run_child_process({ "notify-send", "-u", "normal", "-t", tostring(timeout_ms), title, body })
+	else
+		window:toast_notification(title, body, nil, timeout_ms)
+	end
+end
+
 local STATUS_ICON = { running = "🤖", waiting = "💬", idle = "💤" }
 local STATUS_NERD_ICON =
 	{ running = "md_robot", waiting = "md_robot_confused_outline", idle = "md_robot_off_outline" }
@@ -226,7 +240,7 @@ function M.dashboard_action()
 		cache.timestamp = 0 -- 開くときは必ず最新を取る
 		local agents = M.scan()
 		if #agents == 0 then
-			window:toast_notification("wezterm", "Claude Code のセッションはありません", nil, 3000)
+			M.notify(window, "wezterm", "Claude Code のセッションはありません", 3000)
 			return
 		end
 

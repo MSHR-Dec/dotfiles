@@ -12,6 +12,7 @@ if [ "$(uname)" == "Darwin" ]; then
   grep -qxF 'source $HOME/.bash_override' $HOME/.bash_profile || echo 'source $HOME/.bash_override' >>$HOME/.bash_profile
 elif [ "$(uname)" == "Linux" ]; then
   grep -qxF 'source $HOME/.bash_override' $HOME/.bashrc || echo 'source $HOME/.bash_override' >>$HOME/.bashrc
+  grep -qxF 'bind -x '\''"\C-r": __fzf_history__'\''' $HOME/.bashrc || echo 'bind -x '\''"\C-r": __fzf_history__'\''' >>$HOME/.bashrc
 fi
 
 # NeoVim

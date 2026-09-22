@@ -36,6 +36,8 @@ brew "zoxide", trusted: true
 # claude-code's cask ships Linux binaries too
 cask "claude-code", trusted: true
 
+brew "wl-clipboard", trusted: true unless OS.mac?
+
 # fonts and WezTerm are macOS-only here; on Linux, fonts are installed manually
 # and WezTerm comes from its apt repo instead (see README)
 if OS.mac?

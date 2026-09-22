@@ -295,7 +295,7 @@ wezterm.on("update-status", function(window, pane)
 	local agents = agent.scan()
 	for _, ev in ipairs(agent.take_events()) do
 		local body = ev.kind == "waiting" and " が入力待ちです" or " が完了しました"
-		window:toast_notification("Claude Code", ev.agent.project .. body, nil, 4000)
+		agent.notify(window, "Claude Code", ev.agent.project .. body, 4000)
 	end
 
 	-- workspace ごとにエージェントをグループ化

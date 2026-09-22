@@ -82,6 +82,7 @@ fi
 echo "==> xremap permissions (input group / uinput)"
 # https://github.com/xremap/xremap/blob/master/doc/running_without_sudo.md
 sudo gpasswd -a "$USER" input
+echo 'KERNEL=="event*", NAME="input/%k", MODE="660", GROUP="input"' | sudo tee /etc/udev/rules.d/input.rules >/dev/null
 echo 'KERNEL=="uinput", GROUP="input", TAG+="uaccess", MODE:="0660", OPTIONS+="static_node=uinput"' |
   sudo tee /etc/udev/rules.d/99-input.rules >/dev/null
 echo uinput | sudo tee /etc/modules-load.d/uinput.conf >/dev/null
@@ -112,7 +113,6 @@ chsh -s "${BRUSH_PATH}"
 
 echo "==> xremap.service"
 systemctl --user daemon-reload
-systemctl --user enable --now xremap.service || echo "  could not start xremap.service yet; try again after re-logging in" >&2
 
 cat <<'EOF'
 
