@@ -30,7 +30,7 @@ xremap's per-application remaps (`xremap/config.yml`) work out of the box on X11
 - GNOME Wayland: install the [xremap GNOME Shell extension](https://extensions.gnome.org/extension/5060/xremap/).
 - KDE Plasma Wayland: no extension exists; xremap logs the active window's class/caption to `journalctl --user -u xremap -f` once a filter has been triggered, which you use to write the `application` matchers. See the [xremap docs](https://github.com/xremap/xremap/blob/master/README.md#kde-plasma-wayland).
 
-Vivaldi isn't installed by `setup-ubuntu.sh` (its Homebrew cask is macOS-only), install it manually from its official apt repo:
+Vivaldi and Wezterm aren't installed by `setup-ubuntu.sh` (their Homebrew cask are macOS-only), install them manually from their official apt repo:
 ```
 curl -fsSL https://repo.vivaldi.com/archive/linux_signing_key.pub | sudo gpg --yes --dearmor -o /usr/share/keyrings/vivaldi-browser.gpg
 cat <<EOF | sudo tee /etc/apt/sources.list.d/vivaldi-archive.sources
@@ -42,4 +42,16 @@ Signed-By: /usr/share/keyrings/vivaldi-browser.gpg
 EOF
 sudo apt-get update
 sudo apt-get install -y vivaldi-stable
+```
+```
+curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
+cat <<EOF | sudo tee /etc/apt/sources.list.d/wezterm.sources
+Types: deb
+URIs: https://apt.fury.io/wez/
+Suites: *
+Components: *
+Signed-By: /usr/share/keyrings/wezterm-fury.gpg
+EOF
+sudo apt-get update
+sudo apt-get install -y wezterm-nightly
 ```

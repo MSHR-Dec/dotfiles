@@ -36,14 +36,11 @@ brew "zoxide", trusted: true
 # claude-code's cask ships Linux binaries too
 cask "claude-code", trusted: true
 
+# fonts and WezTerm are macOS-only here; on Linux, fonts are installed manually
+# and WezTerm comes from its apt repo instead (see README)
 if OS.mac?
   cask "font-hackgen", trusted: true
   cask "font-hackgen-nerd", trusted: true
   cask "font-jetbrains-mono-nerd-font", trusted: true
   cask "wezterm@nightly", trusted: true
-else
-  # fonts are installed manually on Linux (see setup-ubuntu.sh); Homebrew casks
-  # can't place them. WezTerm ships as a formula in its own Linuxbrew tap instead.
-  tap "wezterm/wezterm-linuxbrew"
-  brew "wezterm/wezterm-linuxbrew/wezterm", args: ["HEAD"], trusted: true
 end
