@@ -1,5 +1,6 @@
 # NeoVim
 custom.lua
+lazy-lock.json
 nvim.log
 requirements.lua
 
