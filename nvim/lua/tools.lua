@@ -43,32 +43,45 @@ vim.keymap.set("n", "<C-b>", function()
   vim.cmd(("FloatermNew --width=0.9 --height=0.9 --title=yazi yazi %s"):format(vim.fn.fnameescape(vim.fn.getcwd())))
 end, { desc = "yazi" })
 
--- telescope.nvim
-require("telescope").setup({
-  defaults = {
-    file_ignore_patterns = {
-      "tmp/",
-      "%.claude/",
-      "sig/",
-      "node_modules/",
-      "%.git/",
-      "dist/",
-      "public/",
-      "vendor/",
-      "bin/",
-      "__pycache__/",
-      "%.venv/",
-      "venv/",
-      "jvm/",
-      "jars/",
-    },
+-- fzf-lua
+local fzf = require("fzf-lua")
+
+local ignore_dirs = {
+  "tmp", ".claude", "sig", "node_modules", ".git",
+  "dist", "public", "vendor", "bin", "__pycache__",
+  ".venv", "venv", "jvm", "jars",
+}
+local fd_excludes = table.concat(
+  vim.tbl_map(function(d) return "--exclude " .. d end, ignore_dirs), " ")
+local rg_globs = table.concat(
+  vim.tbl_map(function(d) return ("--glob '!%s/**'"):format(d) end, ignore_dirs), " ")
+
+fzf.setup({
+  files = {
+    fd_opts = "--color=never --type f --type l --hidden --follow " .. fd_excludes,
+  },
+  grep = {
+    rg_opts = "--column --line-number --no-heading --color=always --smart-case "
+      .. "--max-columns=4096 " .. rg_globs .. " -e",
   },
 })
 
-vim.keymap.set("n", "<Leader>fg", function() require("telescope.builtin").live_grep() end)
-vim.keymap.set("n", "<Leader>ff", function() require("telescope.builtin").current_buffer_fuzzy_find() end)
-vim.keymap.set("n", "<Leader>fF", function() require("telescope.builtin").find_files() end)
-vim.keymap.set("n", "<Leader>fb", function() require("telescope.builtin").buffers() end)
+vim.keymap.set("n", "<Leader>fg", function()
+  fzf.fzf_exec("fd --type d --hidden --follow " .. fd_excludes, {
+    prompt = "Dir> ",
+    actions = {
+      ["default"] = function(selected)
+        if not selected or not selected[1] then return end
+        local dir = vim.fn.fnamemodify(selected[1], ":p")
+        fzf.live_grep({ cwd = dir, winopts = { title = (" %s "):format(dir) } })
+      end,
+    },
+  })
+end, { desc = "live_grep in dir" })
+vim.keymap.set("n", "<Leader>fG", fzf.live_grep)
+vim.keymap.set("n", "<Leader>ff", fzf.grep_curbuf)
+vim.keymap.set("n", "<Leader>fF", fzf.files)
+vim.keymap.set("n", "<Leader>fb", fzf.buffers)
 
 -- search-replace
 require("search-replace").setup({
@@ -98,8 +111,7 @@ require("aerial").setup({
 })
 vim.keymap.set("n", "<Leader>o", "<cmd>AerialToggle<cr>", { desc = "outline" })
 
-require("telescope").load_extension("aerial")
-vim.keymap.set("n", "<Leader>fo", function() require("telescope").extensions.aerial.aerial() end,
+vim.keymap.set("n", "<Leader>fo", function() require("aerial").fzf_lua_picker() end,
   { desc = "search symbols (aerial)" })
 
 -- .documents
@@ -109,5 +121,5 @@ vim.keymap.set("n", "<Leader>nb", function()
   vim.cmd(("FloatermNew --width=0.9 --height=0.9 --title=documents yazi %s"):format(vim.fn.fnameescape(docs_dir)))
 end, { noremap = true, desc = "documents: yazi" })
 vim.keymap.set("n", "<Leader>nl", function()
-  require("telescope.builtin").live_grep({ prompt_title = "Documents Grep", cwd = docs_dir })
+  require("fzf-lua").live_grep({ cwd = docs_dir, winopts = { title = " Documents Grep " } })
 end, { noremap = true, desc = "documents: grep" })

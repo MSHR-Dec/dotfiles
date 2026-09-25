@@ -40,8 +40,7 @@ require('lazy').setup({
 
   -- tools
   { 'akinsho/toggleterm.nvim', version = '*' },
-  'nvim-lua/plenary.nvim',
-  'nvim-telescope/telescope.nvim',
+  'ibhagwan/fzf-lua',
   'voldikss/vim-floaterm',
   'stevearc/aerial.nvim',
 

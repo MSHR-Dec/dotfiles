@@ -34,7 +34,7 @@ brew "yq", trusted: true
 brew "zoxide", trusted: true
 
 # claude-code's cask ships Linux binaries too
-cask "claude-code", trusted: true
+cask "claude-code@latest", trusted: true
 
 brew "wl-clipboard", trusted: true unless OS.mac?
 

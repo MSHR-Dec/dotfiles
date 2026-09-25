@@ -72,13 +72,13 @@ require("dashboard").setup({
   config = {
     week_header = { enable = true },
     shortcut = {
-      { desc = "Files", group = "@property",      key = "f", action = "Telescope find_files" },
-      { desc = "Grep",  group = "Label",          key = "g", action = "Telescope live_grep" },
+      { desc = "Files", group = "@property",      key = "f", action = "FzfLua files" },
+      { desc = "Grep",  group = "Label",          key = "g", action = "FzfLua live_grep" },
       { desc = "yazi",  group = "DiagnosticHint", key = "b",
         action = "FloatermNew --width=0.9 --height=0.9 --title=yazi yazi" },
       { desc = "Update Plugins", group = "String", key = "u", action = "Lazy sync" },
     },
-    project = { enable = true, limit = 8, action = "Telescope find_files cwd=" },
+    project = { enable = true, limit = 8, action = "FzfLua files cwd=" },
     mru = { limit = 10 },
   },
 })
