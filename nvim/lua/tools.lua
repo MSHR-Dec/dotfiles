@@ -37,8 +37,6 @@ vim.g.floaterm_opener = "edit"
 -- ('0.12.5' <= '0.4.4' が真) 旧 nvim 向けの分岐に入り、ジョブ単位ではなく
 -- nvim プロセス全体に setenv してしまう。toggleterm 内の git まで巻き込まれる
 vim.g.floaterm_giteditor = false
-vim.api.nvim_set_hl(0, "Floaterm", { bg = "#2B2B2B" })
-vim.api.nvim_set_hl(0, "FloatermBorder", { bg = "#2B2B2B" })
 vim.keymap.set("n", "<C-b>", function()
   vim.cmd(("FloatermNew --width=0.9 --height=0.9 --title=yazi yazi %s"):format(vim.fn.fnameescape(vim.fn.getcwd())))
 end, { desc = "yazi" })
@@ -79,8 +77,7 @@ vim.keymap.set("n", "<Leader>fg", function()
   })
 end, { desc = "live_grep in dir" })
 vim.keymap.set("n", "<Leader>fG", fzf.live_grep)
-vim.keymap.set("n", "<Leader>ff", fzf.grep_curbuf)
-vim.keymap.set("n", "<Leader>fF", fzf.files)
+vim.keymap.set("n", "<Leader>ff", fzf.files)
 vim.keymap.set("n", "<Leader>fb", fzf.buffers)
 
 -- search-replace
